@@ -48,7 +48,7 @@ public class GlobalExceptionHandle {
 
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse> handlingAppException(AppException exception) {
-        ErrorApp error = ErrorApp.TIMEOUT_REQUEST;
+        ErrorApp error = exception.getError();
         ApiResponse response = new ApiResponse();
         response.setCode(error.getCode());
         response.setMessage(error.getMessage());
@@ -56,8 +56,8 @@ public class GlobalExceptionHandle {
     }
 
     @ExceptionHandler(value = RestClientException.class)
-    ResponseEntity<ApiResponse> handlingRestClientException(AppException appException){
-        ErrorApp error = appException.getError();
+    ResponseEntity<ApiResponse> handlingRestClientException(RestClientException exception){
+        ErrorApp error = ErrorApp.TIMEOUT_REQUEST;
         ApiResponse response = new ApiResponse();
         response.setCode(error.getCode());
         response.setMessage(error.getMessage());

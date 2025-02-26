@@ -1,15 +1,40 @@
 package com.example.demo.entity;
 
+import com.example.demo.enums.TypeTimeWork;
+import com.example.demo.enums.WagePayments;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "teachers")
+@PrimaryKeyJoinColumn(name="user_id")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Teacher extends User{
     String description;
     String image;
     String video;
+    @Column(length = 10)
+    TypeTimeWork typeTimeWork;
+    @Column(length = 10)
+    WagePayments wagePayments;
 
-    //Relation
-    //Graduate List<graduate>;
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Graduate> graduates;
 
-    //Buoc 1 Class School => Graduate => Experience => Certificate
+    public Teacher(User user, String description,String image,String video, TypeTimeWork typeTimeWork, WagePayments wagePayments) {
+        super(user.getId(), user.getUsername(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getDob(),user.getRoles(),user.getPosts());
+        this.description = description;
+        this.image=image;
+        this.video= video;
+        this.typeTimeWork=typeTimeWork;
+        this.wagePayments=wagePayments;
+    }
 
-    //School Chi Duoc Luu khi ma Nguoi dung them vao` hoac sử dụng còn khogn6 thì gọi api của tk khác để search
-    // https://diemthi.tuyensinh247.com/api/school/search?q=
 }

@@ -2,16 +2,20 @@ package com.example.demo.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import com.example.demo.dto.request.TeacherRequest;
 import com.example.demo.dto.request.UserEditionRequest;
 import com.example.demo.dto.response.UserCreationResponse;
 import com.example.demo.entity.Role;
+import com.example.demo.entity.Teacher;
 import com.example.demo.enums.Roles;
 import com.example.demo.exception.AppException;
 import com.example.demo.exception.ErrorApp;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.TeacherRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +42,7 @@ public class UserService {
 
     PasswordEncoder passwordEncoder;
      UserMapper userMapper;
+    private final TeacherRepository teacherRepository;
 
 
     public UserCreationResponse createRequest(UserCreationRequest userReq) {
@@ -73,6 +78,8 @@ public class UserService {
 
          return userMapper.toUserResponse(user);
      }
+
+
 
      public void deleteUser(){
         var authentication = SecurityContextHolder.getContext().getAuthentication();

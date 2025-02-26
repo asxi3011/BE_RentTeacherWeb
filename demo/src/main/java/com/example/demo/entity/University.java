@@ -1,11 +1,12 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.example.demo.dto.response.UniversityResponse;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Primary;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Primary;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class University {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @Column(length = 10, nullable = false)
     String code ;
@@ -23,4 +25,12 @@ public class University {
     String name;
 
     String alias;
+
+    @OneToMany(mappedBy = "university",cascade = CascadeType.ALL)
+    Set<Graduate> graduates;
+
+    public University(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 }

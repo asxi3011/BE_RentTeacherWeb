@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.request.UserEditionRequest;
 import com.example.demo.dto.response.ApiResponse;
 import com.example.demo.dto.response.UserCreationResponse;
+import com.example.demo.entity.Teacher;
 import com.example.demo.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -44,13 +45,14 @@ public class UserController {
         return response;
     }
 
-    @PutMapping("/user")
+    @PutMapping("/editUser")
     ApiResponse<UserCreationResponse> editUserById(@RequestBody @Valid UserEditionRequest request){
         ApiResponse<UserCreationResponse> response = new ApiResponse<>();
         UserCreationResponse dataS = userService.editRequest(request);
         response.setData(dataS);
         return response;
     }
+
     @DeleteMapping("/deleteUser")
     ApiResponse<String> deleteUserByID(){
         userService.deleteUser();

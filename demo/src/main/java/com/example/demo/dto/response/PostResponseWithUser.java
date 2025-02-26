@@ -1,7 +1,5 @@
 package com.example.demo.dto.response;
 
-import com.example.demo.entity.Address;
-import com.example.demo.entity.User;
 import com.example.demo.enums.TypeTimeWork;
 import com.example.demo.enums.WagePayments;
 import lombok.*;
@@ -15,7 +13,7 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostResponse {
+public class PostResponseWithUser {
     String title;
     LocalDate datePost;
     LocalDate dateEnd;
@@ -23,5 +21,5 @@ public class PostResponse {
     TypeTimeWork typeTimeWork;
     int experience;
     BigDecimal wage;
-
+    UserCreationResponse user ;
 }

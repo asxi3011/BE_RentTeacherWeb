@@ -21,4 +21,6 @@ public class City {
 
     @OneToMany(mappedBy = "city",cascade = CascadeType.ALL,orphanRemoval = true)
     List<District> districts;
+
+
 }

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.request.PostRequest;
 import com.example.demo.dto.response.PostResponse;
+import com.example.demo.dto.response.PostResponseWithUser;
 import com.example.demo.entity.Post;
 import com.example.demo.entity.User;
 import com.example.demo.exception.AppException;
@@ -29,18 +30,17 @@ public class PostService {
     UserRepository repositoryUser;
     PostMapper mapper;
 
-    public PostResponse create(PostRequest request) {
+    public PostResponseWithUser create(PostRequest request) {
         Post post = mapper.toPost(request);
         var context = SecurityContextHolder.getContext().getAuthentication();
         User user = repositoryUser.findByUsername(context.getName()).orElseThrow(()->new AppException(ErrorApp.USER_NOT_FOUND));
         post.setUser(user);
-        return mapper.toPostResponse(repository.save(post));
+        return mapper.toPostResponseWithUser(repository.save(post));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     public List<PostResponse> getAll() {
-        List<PostResponse> s = repository.findAll().stream().map(post -> mapper.toPostResponse(post)).toList();
-        return s;
+        return repository.findAll().stream().map(mapper::toPostResponse).toList();
     }
 
 //
