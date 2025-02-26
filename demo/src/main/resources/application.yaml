@@ -6,7 +6,7 @@ spring:
   application:
     name: AppMusic
   datasource:
-    url: ${DATABASE_URL}
+    url: "jdbc:mysql://localhost:3306/identity_service"
     username: root
     password: root
   jpa:
