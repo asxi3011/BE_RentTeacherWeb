@@ -1,12 +1,12 @@
 server:
-  port: 8080
+  port: 43334
   servlet:
     context-path: /identity
 spring:
   application:
     name: AppMusic
   datasource:
-    url: "jdbc:mysql://shuttle.proxy.rlwy.net:43334/railway"
+    url: "jdbc:mysql://shuttle.proxy.rlwy.net:3306/railway"
     username: root
     password: tGZyzIxerKvFIsAYywFdmYDpViKtKmvq
   jpa:
