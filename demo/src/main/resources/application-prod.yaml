@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /identity
+spring:
+  application:
+    name: AppMusic
+  datasource:
+    url: "shuttle.proxy.rlwy.net:43334"
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+jwt:
+  SECRET_KEY: "4Ln6h2KQDuYGyThDGPrZZ2MvBcmlrCpL5p3XlGWa/Qn0W1t/2GYGb+aEcw4wy8SP"
