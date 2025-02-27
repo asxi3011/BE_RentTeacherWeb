@@ -31,6 +31,11 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("/")
+    String helloWord(){
+        return "helloWorld";
+    }
+
     @GetMapping("/users")
     ApiResponse<List<UserCreationResponse>> getUser(){
         ApiResponse<List<UserCreationResponse>> response= new ApiResponse<>();
