@@ -6,9 +6,9 @@ spring:
   application:
     name: AppMusic
   datasource:
-    url: "jdbc:mysql://shuttle.proxy.rlwy.net:3306/railway"
+    url: "jdbc:mysql://mainline.proxy.rlwy.net:17183/railway"
     username: root
-    password: tGZyzIxerKvFIsAYywFdmYDpViKtKmvq
+    password: bczcLXvgbkeKwVGxgTBGkrJZChDsTjAK
   jpa:
     hibernate:
       ddl-auto: update
