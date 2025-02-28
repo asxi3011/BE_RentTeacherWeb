@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.response.ExperienceResponse;
 import com.example.demo.enums.TypeTimeWork;
 import com.example.demo.enums.WagePayments;
 import jakarta.persistence.*;
@@ -28,8 +29,14 @@ public class Teacher extends User{
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Graduate> graduates;
 
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Experience> experiences;
+
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Certificate> certificates;
+
     public Teacher(User user, String description,String image,String video, TypeTimeWork typeTimeWork, WagePayments wagePayments) {
-        super(user.getId(), user.getUsername(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getDob(),user.getRoles(),user.getPosts());
+        super(user.getId(), user.getUsername(),user.getEmail(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getAvatar(),user.getDob(),user.getRoles(),user.getPosts());
         this.description = description;
         this.image=image;
         this.video= video;

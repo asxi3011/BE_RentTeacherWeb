@@ -18,7 +18,7 @@ public class GraduateResponse {
 
     float gpa;
 
-    boolean isComplete;
+    Boolean isComplete;
 
     UniversityResponse university;
 }

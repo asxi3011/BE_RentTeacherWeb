@@ -1,5 +1,7 @@
 package com.example.demo.dto.response;
 
+import com.example.demo.entity.Certificate;
+import com.example.demo.entity.Experience;
 import com.example.demo.entity.Graduate;
 import com.example.demo.enums.TypeTimeWork;
 import com.example.demo.enums.WagePayments;
@@ -23,5 +25,9 @@ public class TeacherResponse extends UserCreationResponse{
 
     List<PostResponse> posts;
 
-    List<GraduateResponse> graduates;
+    Set<GraduateResponse> graduates;
+
+    Set<ExperienceResponse> experiences;
+
+    Set<CertificateResponse> certificates;
 }

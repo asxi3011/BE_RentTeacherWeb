@@ -4,6 +4,7 @@ import com.example.demo.dto.response.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.security.Key;
 import java.util.HashMap;
@@ -45,7 +47,24 @@ public class GlobalExceptionHandle {
         response.setMessage(error.getMessage());
         return ResponseEntity.status(error.getHttpStatus()).body(response);
     }
+    @ExceptionHandler(value = MaxUploadSizeExceededException.class)
+    ResponseEntity<ApiResponse> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException exception) {
+        ErrorApp error = ErrorApp.FILE_UPLOAD_LARGE;
+        ApiResponse response = new ApiResponse();
+        response.setCode(error.getCode());
+        response.setMessage(error.getMessage());
+        return ResponseEntity.status(error.getHttpStatus()).body(response);
+    }
 
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    ResponseEntity<ApiResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        ErrorApp error = ErrorApp.DUPLICATE_ENTRY;
+        log.warn("DAY LA HANDLE",exception);
+        ApiResponse response = new ApiResponse();
+        response.setCode(error.getCode());
+        response.setMessage(error.getMessage());
+        return ResponseEntity.status(error.getHttpStatus()).body(response);
+    }
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse> handlingAppException(AppException exception) {
         ErrorApp error = exception.getError();

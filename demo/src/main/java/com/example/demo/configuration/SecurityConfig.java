@@ -27,7 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 @Configuration
     @EnableWebSecurity
     public class SecurityConfig {
-        private final String[] POST_PUBLIC_ENDPOINT = {"/add","/auth/login","/auth/introspect","/address"};
+        private final String[] POST_PUBLIC_ENDPOINT = {"/add","/auth/login","/auth/introspect","/address","/upload/image","auth/logout"};
     private final String[] PUBLIC = {"/address/get_address_ui","university/getUniversitiesOnline"};
 
 

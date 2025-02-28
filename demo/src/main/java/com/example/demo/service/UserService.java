@@ -40,20 +40,22 @@ public class UserService {
      UserRepository userRepository;
      RoleRepository roleRepository;
 
-    PasswordEncoder passwordEncoder;
+     PasswordEncoder passwordEncoder;
      UserMapper userMapper;
     private final TeacherRepository teacherRepository;
 
 
     public UserCreationResponse createRequest(UserCreationRequest userReq) {
-        if(userRepository.existsByUsername(userReq.getUsername()))
+        if(userRepository.existsByUsername(userReq.getUsername()) || userRepository.existsByEmail(userReq.getEmail()))
             throw new AppException(ErrorApp.USER_EXISTED);
+
         User user = userMapper.toUser(userReq);
         user.setPassword(passwordEncoder.encode(userReq.getPassword()));
-
-        Set<Role> roles = new HashSet<>(roleRepository.findAllById(userReq.getRole()));
-
+        Role userRole =roleRepository.findById(Roles.USER.name()).orElseThrow(()->new AppException(ErrorApp.ROLES_NOT_FOUND));
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
         user.setRoles(roles);
+        user.setAvatar(generateAvatar(userReq.getFirstName()));
         return userMapper.toUserResponse(  userRepository.save(user));
     }
 
@@ -79,6 +81,9 @@ public class UserService {
          return userMapper.toUserResponse(user);
      }
 
+    private String generateAvatar(String name){
+        return "https://ui-avatars.com/api/?name="+name+"&background=random";
+    }
 
 
      public void deleteUser(){

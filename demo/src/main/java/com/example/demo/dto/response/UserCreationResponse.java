@@ -21,6 +21,9 @@ public class UserCreationResponse {
      String username;
      String firstName;
      String lastName;
+     String email;
+     String avatar;
      LocalDate dob;
+     List<PostResponse> posts;
      Set<Role> roles;
 }

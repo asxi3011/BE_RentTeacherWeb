@@ -12,7 +12,7 @@ public class GraduateRequest {
     String major;
     String schoolYear;
     float gpa;
-    boolean isComplete;
+    Boolean isComplete;
     String codeUniversity;
     String nameUniversity;
 }

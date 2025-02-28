@@ -2,14 +2,17 @@ package com.example.demo.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-@Builder
+
+import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
-    String accessToken;
-    String refreshToken;
-    boolean authenticated;
+public class CertificateResponse {
+
+    String trainingProgram;
+    String reference;
+    LocalDate issueDate;
+    LocalDate expiryDate;
 }

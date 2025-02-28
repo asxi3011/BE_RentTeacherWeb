@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ExperienceResponse {
-    String companyName;
+    String nameCompany;
     String position;
     LocalDate startDate;
     LocalDate endDate;

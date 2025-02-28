@@ -10,5 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Builder
 public class IntrospectRequest {
-    String token;
+    String accessToken;
+    String refreshToken;
 }

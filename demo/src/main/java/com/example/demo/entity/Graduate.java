@@ -18,7 +18,7 @@ public class Graduate {
     String major;
     String schoolYear;
     float gpa;
-    boolean isComplete;
+    Boolean isComplete;
 
     @ManyToOne
     @JoinColumn(name = "university_id",nullable = false)

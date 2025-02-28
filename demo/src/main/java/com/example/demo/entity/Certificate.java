@@ -9,17 +9,17 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Experience {
+public class Certificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    String nameCompany;
-    String position;
-    LocalDate startDate;
-    LocalDate endDate;
+    String trainingProgram;
+    String reference;
+    LocalDate issueDate;
+    LocalDate expiryDate;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id",nullable = false)

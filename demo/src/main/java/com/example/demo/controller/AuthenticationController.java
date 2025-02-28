@@ -41,4 +41,13 @@ public class AuthenticationController {
                 .data(response)
                 .build();
     }
+
+    @PostMapping("/logout")
+    ApiResponse<String> logout(@RequestBody IntrospectRequest introspectRequest){
+        authenticationService.logout(introspectRequest);
+        return ApiResponse.<String>
+                        builder()
+                .data("logout thanh cong")
+                .build();
+    }
 }

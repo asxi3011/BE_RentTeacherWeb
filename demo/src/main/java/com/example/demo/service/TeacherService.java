@@ -42,7 +42,13 @@ public class TeacherService {
             throw new AppException(ErrorApp.TEACHER_ALREADY);
         Teacher teacher = teacherMapper.toTeacher(request);
         User user = userRepository.findByUsername(context.getName()).orElseThrow(()-> new AppException(ErrorApp.USER_NOT_FOUND));
+
         teacherMapper.updateTeacher(teacher,user);
+
+        Role teacherRole = roleRepository.findById(Roles.TEACHER.name()).orElseThrow(() -> new AppException(ErrorApp.ROLES_NOT_FOUND));
+        Set<Role> roles = teacher.getRoles();
+        roles.add(teacherRole);
+        teacher.setRoles(roles);
         userRepository.delete(user);
         //-------
         // sau khi xong chức năng đăng phải đăng xuất user và bắt đăng nhập lại để thoát token đang lưu trên user đã xóa

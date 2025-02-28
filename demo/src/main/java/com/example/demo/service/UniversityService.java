@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.request.UniversityRequest;
+import com.example.demo.dto.response.UniversitiesDataResponse;
 import com.example.demo.dto.response.UniversityResponse;
 import com.example.demo.entity.University;
 import com.example.demo.exception.AppException;
@@ -15,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -50,13 +50,3 @@ public class UniversityService {
 
 }
 
-@Getter
-@Setter
-@NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-class UniversitiesDataResponse {
-    boolean success;
-    List<UniversityResponse> data;
-    String msg;
-
-}

@@ -36,24 +36,30 @@ public class ApplicationConfig {
         return args -> {
 
             if (userRepository.findByUsername("admin").isEmpty()){
-                Permission permission = new Permission("APPROVE_POST", "You have permission approve post");
-                Permission permission1 = new Permission("BAN_USER", "You have permission ban user");
-                Permission permission2 = new Permission("DELETE_USER", "You have permission delete user");
-
-                Set<Permission> listPermission= new HashSet<Permission>();
-                listPermission.add(permission);
-                listPermission.add(permission1);
-                listPermission.add(permission2);
-                Role role = new Role("ADMIN","You have role Admin",listPermission );
-                Set<Role> roles= new HashSet<Role>();
-                roles.add(role);
-
-                permissionRepository.saveAll(listPermission);
-                roleRepository.save(role);
-                User user = new User("admin","admin","admin",roles);
+                INIT_PERMISSION_CONFIG listInit = new INIT_PERMISSION_CONFIG();
+                listInit.init();
+                Set<Role> roles = getRoles(listInit);
+                permissionRepository.saveAll(listInit.getUserPermissions());
+                permissionRepository.saveAll(listInit.getTeacherPermissions());
+                roleRepository.saveAll(roles);
+                User user = new User("admin","admin@gmail.com","admin","admin",roles);
                 user.setPassword(passwordEncoder.encode("admin"));
                 userRepository.save(user);
             }
         };
+    }
+
+    private static Set<Role> getRoles(INIT_PERMISSION_CONFIG listInit) {
+        Set<Permission> userPermissions= listInit.getUserPermissions() ;
+        Set<Permission> teacherPermission= listInit.getTeacherPermissions() ;
+
+        Role roleAdmin = new Role("ADMIN","You have role Admin",new HashSet<>());
+        Role roleUser = new Role(Roles.USER.name(),"You have role "+Roles.USER.name(),userPermissions);
+        Role roleTeacher = new Role(Roles.TEACHER.name(),"You have role "+Roles.TEACHER.name(),teacherPermission);
+        Set<Role> roles= new HashSet<Role>();
+        roles.add(roleAdmin);
+        roles.add(roleUser);
+        roles.add(roleTeacher);
+        return roles;
     }
 }

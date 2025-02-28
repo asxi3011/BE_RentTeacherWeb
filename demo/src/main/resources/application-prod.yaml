@@ -15,3 +15,7 @@ spring:
     show-sql: true
 jwt:
   SECRET_KEY: "4Ln6h2KQDuYGyThDGPrZZ2MvBcmlrCpL5p3XlGWa/Qn0W1t/2GYGb+aEcw4wy8SP"
+cloudinary:
+  cloud-name: drcbvynjg
+  api-key: 339759325986979
+  api-secret: ruf-ix7QNRTsytinEzAaxtQqtnk
