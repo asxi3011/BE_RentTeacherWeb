@@ -28,8 +28,8 @@ import javax.crypto.spec.SecretKeySpec;
     @EnableWebSecurity
     public class SecurityConfig {
         private final String[] POST_PUBLIC_ENDPOINT = {"/add","/auth/login","/auth/introspect","/address","/upload/image","auth/logout"};
-    private final String[] PUBLIC = {"/address/get_address_ui","university/getUniversitiesOnline"};
-
+        private final String[] GET_PUBLIC_ENDPOINT = {"/address/get_address_ui","university/getUniversitiesOnline"};
+        private final String[] PUBLIC = {"/ws/**"};
 
 
         @Value("${jwt.SECRET_KEY}")
@@ -38,10 +38,13 @@ import javax.crypto.spec.SecretKeySpec;
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http.authorizeHttpRequests(request ->
                     request.requestMatchers(HttpMethod.POST,POST_PUBLIC_ENDPOINT).permitAll()
-                            .requestMatchers(HttpMethod.GET,PUBLIC).permitAll()
+                            .requestMatchers(HttpMethod.GET,GET_PUBLIC_ENDPOINT).permitAll()
+                            .requestMatchers(PUBLIC).permitAll()
                             .anyRequest().authenticated()
 
             );
+            http.cors(AbstractHttpConfigurer::disable) // Tắt CORS nếu không dùng API REST
+             .csrf(csrf -> csrf.ignoringRequestMatchers("/ws/**"));
             http.csrf(AbstractHttpConfigurer::disable);
             http.httpBasic(AbstractHttpConfigurer::disable);
             http.oauth2ResourceServer(httpOauth2 ->
